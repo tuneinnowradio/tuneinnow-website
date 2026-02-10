@@ -23,6 +23,7 @@
     --neon-pink: #ff007a;
     --glass-bg: rgba(10, 10, 20, 0.85);
     --cash-green: #00d632;
+    --twitch-purple: #9146FF;
 }
 
 * { box-sizing: border-box; outline: none; }
@@ -31,6 +32,7 @@ body {
     font-family: 'Inter', sans-serif; overflow-x: hidden;
 }
 
+/* Background Grid Animation */
 body::before {
     content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background:
@@ -46,27 +48,30 @@ body::before {
 }
 @keyframes grid-move { from { background-position: 0 0, 0 0, 0 0; } to { background-position: 0 0, 0 0, 0 40px; } }
 
-.scanline-container { position: relative; overflow: hidden; }
-.scanline-container::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-    background-size: 100% 4px; pointer-events: none; z-index: 2;
+/* Eye Candy: Scanning Glow Line */
+.glass::after {
+    content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: linear-gradient(rgba(255,255,255,0) 45%, rgba(0, 242, 254, 0.05) 50%, rgba(255,255,255,0) 55%);
+    animation: scan-glow 6s linear infinite; pointer-events: none;
 }
+@keyframes scan-glow { 0% { transform: translateY(-20%); } 100% { transform: translateY(20%); } }
 
-.glass { background: var(--glass-bg); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9); }
+.glass { position: relative; background: var(--glass-bg); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9); overflow: hidden; }
 
 header { height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
 .logo { height: 110px; border-radius: 25px; box-shadow: 0 0 30px rgba(157, 80, 187, 0.4); transition: 0.5s; cursor: pointer; }
+.logo:hover { transform: scale(1.05); box-shadow: 0 0 50px var(--neon-purple); }
 
 h1 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; letter-spacing: 6px; background: linear-gradient(90deg, #fff, var(--neon-cyan), #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite; font-weight: 900; margin-top: 20px; }
 @keyframes shine { to { background-position: 200% center; } }
 
-#radio { padding: 40px; text-align: center; position: relative; }
+#radio { padding: 40px; text-align: center; border: 1px solid rgba(0, 242, 254, 0.2); animation: neon-pulse 5s infinite alternate; }
+@keyframes neon-pulse { from { box-shadow: 0 0 20px rgba(0, 242, 254, 0.1); } to { box-shadow: 0 0 40px rgba(157, 80, 187, 0.2); } }
+
 .video-container {
     position: relative; width: 100%; padding-bottom: 56.25%; height: 0;
     border-radius: 18px; background: #000;
-    box-shadow: 0 0 40px rgba(0, 242, 254, 0.15); margin-bottom: 25px;
-    overflow: hidden;
+    margin-bottom: 25px; overflow: hidden;
 }
 #twitch-player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
@@ -85,22 +90,23 @@ h1 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; letter-spacing: 6px
 @keyframes bounce { 0%, 100% { height: 5px; opacity: 0.5; } 50% { height: 20px; opacity: 1; } }
 
 .now-playing-container { width: 100%; overflow: hidden; margin-bottom: 5px; }
-#now-playing { font-family: 'Orbitron'; font-size: 1.1rem; font-weight: 800; color: #fff; text-transform: uppercase; white-space: nowrap; display: inline-block; }
+#now-playing { font-family: 'Orbitron'; font-size: 1.1rem; font-weight: 800; color: #fff; text-transform: uppercase; white-space: nowrap; }
 #listeners { color: var(--neon-cyan); font-size: 0.75rem; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; }
 
 main { padding: 0 20px 60px; display: flex; flex-direction: column; gap: 30px; max-width: 900px; margin: 0 auto; }
 
-.badge { position: absolute; padding: 10px 18px; border-radius: 30px; font-weight: 800; font-size: 0.7rem; color: #fff; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s; z-index: 10; background: rgba(0,0,0,0.4); }
-.live { right: 30px; top: 30px; background: var(--neon-pink); border: none; box-shadow: 0 0 15px var(--neon-pink); }
-.twitch-badge { left: 30px; top: 30px; border-left: 4px solid #6441a5; }
-
-.btn { padding: 18px; border-radius: 18px; font-weight: 800; cursor: pointer; border: none; text-decoration: none; transition: 0.4s; display: inline-block; font-family: 'Orbitron'; letter-spacing: 1px; font-size: 0.8rem; }
-.btn-support { background: var(--cash-green); color: #000; margin-bottom: 10px; width: 100%; max-width: 300px; }
+.btn { padding: 18px; border-radius: 18px; font-weight: 800; cursor: pointer; border: none; text-decoration: none; transition: 0.4s; display: inline-block; font-family: 'Orbitron'; letter-spacing: 1px; font-size: 0.8rem; text-align: center; }
+.btn-support { background: var(--cash-green); color: #000; width: 100%; max-width: 300px; }
+.btn-twitch { background: var(--twitch-purple); color: #fff; width: 100%; max-width: 300px; box-shadow: 0 0 15px rgba(145, 70, 255, 0.4); }
+.btn-twitch:hover { box-shadow: 0 0 30px var(--twitch-purple); transform: translateY(-2px); }
 .btn-email { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 100%; max-width: 300px; }
-.btn-email:hover { background: rgba(255,255,255,0.1); }
+
+.info-text { font-size: 0.9rem; line-height: 1.6; color: #b0b0b0; max-width: 600px; margin: 0 auto 20px; }
+.ticker-wrap { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
+.ticker { display: inline-block; white-space: nowrap; animation: ticker 20s linear infinite; font-family: 'Orbitron'; font-size: 0.7rem; color: var(--neon-pink); }
+@keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
 @media (max-width: 600px) {
-    .badge { position: relative; display: inline-block; top: auto !important; left: auto !important; right: auto !important; margin: 5px; }
     header { height: auto; padding: 20px 0; }
 }
 </style>
@@ -108,16 +114,12 @@ main { padding: 0 20px 60px; display: flex; flex-direction: column; gap: 30px; m
 <body>
 
 <header>
-    <div style="text-align: center; margin-bottom: 10px;">
-        <a class="badge twitch-badge" href="https://www.twitch.tv/tuneinnowofficial" target="_blank">TWITCH</a>
-        <div class="badge live">24/7 LIVE</div>
-    </div>
     <img src="/tuneInNow.PNG" class="logo" alt="TuneInNow Radio Logo" onclick="location.reload()">
     <h1>TUNEINNOW</h1>
 </header>
 
 <main>
-    <section id="radio" class="glass scanline-container">
+    <section id="radio" class="glass">
         <div class="video-container">
             <div id="player-overlay">
                 <div class="btn" id="start-btn" style="background: var(--neon-cyan); color: #000;">▶ START SIGNAL</div>
@@ -136,10 +138,25 @@ main { padding: 0 20px 60px; display: flex; flex-direction: column; gap: 30px; m
         <div id="listeners">SEARCHING FOR SIGNALS</div>
     </section>
 
-    <section class="glass scanline-container" style="padding: 40px; text-align: center;">
-        <h2 style="font-family: 'Orbitron'; font-size: 1.2rem; margin: 0 0 20px 0; letter-spacing: 3px;">STATION RELATIONS</h2>
+    <section class="glass" style="padding: 40px; text-align: center;">
+        <h2 style="font-family: 'Orbitron'; font-size: 1.2rem; margin: 0 0 20px 0; letter-spacing: 3px; color: var(--neon-cyan);">STATION TRANSMISSION</h2>
+        <p class="info-text">
+            Broadcasting from the edge of the digital frontier. TuneInNow is your 24/7 companion for late-night drives, neon-soaked study sessions, and indie discoveries. No ads, just atmosphere.
+        </p>
         
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <div class="ticker-wrap">
+            <div class="ticker">SYSTEM STATUS: NOMINAL // NEW TRACKS ADDED DAILY // JOIN THE DISCORD COMMUNITY // KEEP DRIVING //</div>
+        </div>
+    </section>
+
+    <section class="glass" style="padding: 40px; text-align: center;">
+        <h2 style="font-family: 'Orbitron'; font-size: 1.2rem; margin: 0 0 20px 0; letter-spacing: 3px;">CONNECT & SUPPORT</h2>
+        
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <a href="https://www.twitch.tv/tuneinnowofficial" target="_blank" class="btn btn-twitch">
+                💜 FOLLOW ON TWITCH
+            </a>
+
             <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn btn-support">
                 💸 SUPPORT ON CASH APP
             </a>
@@ -189,11 +206,15 @@ main { padding: 0 20px 60px; display: flex; flex-direction: column; gap: 30px; m
             const station = data[0]; 
             
             if(station && station.now_playing && station.now_playing.song) {
-                const songText = station.now_playing.song.text.toUpperCase();
+                // LOGIC: Filter out the album name (Only show Artist - Title)
+                const artist = station.now_playing.song.artist.toUpperCase();
+                const title = station.now_playing.song.title.toUpperCase();
+                const cleanDisplay = `${artist} - ${title}`;
+                
                 const listeners = station.listeners.total;
-                document.getElementById('now-playing').textContent = songText;
+                document.getElementById('now-playing').textContent = cleanDisplay;
                 document.getElementById('listeners').textContent = `${listeners} RIDERS ONLINE`;
-                document.title = `LIVE: ${songText} | TuneInNow`;
+                document.title = `LIVE: ${cleanDisplay} | TuneInNow`;
             }
         } catch(e) { 
             console.error("Stats Error:", e);
