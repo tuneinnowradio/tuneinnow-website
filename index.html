@@ -16,6 +16,7 @@
     --neon-cyan: #00f2fe;
     --neon-pink: #ff007a;
     --glass-bg: rgba(10, 10, 25, 0.85);
+    --twitch-purple: #9146FF;
     --discord-blue: #5865F2;
 }
 
@@ -41,7 +42,7 @@ body::before {
 }
 @keyframes grid-move { from { background-position: 0 0, 0 0, 0 0; } to { background-position: 0 0, 0 0, 0 40px; } }
 
-/* LIVE ANIMATION TOP */
+/* LIVE INDICATOR */
 .live-indicator {
     display: flex; align-items: center; gap: 10px;
     padding: 15px; font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 3px;
@@ -88,14 +89,10 @@ h1 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; letter-spacing: 8px
     border-radius: 20px; background: #000; margin-bottom: 25px; overflow: hidden;
 }
 
-/* VOLUME SLIDER UPGRADE */
+/* VOLUME CONTROLS */
 .controls { margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 15px; }
-input[type=range] {
-    -webkit-appearance: none; width: 150px; background: transparent;
-}
-input[type=range]::-webkit-slider-runnable-track {
-    width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;
-}
+input[type=range] { -webkit-appearance: none; width: 150px; background: transparent; }
+input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; 
     background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); cursor: pointer; margin-top: -6px;
@@ -103,6 +100,9 @@ input[type=range]::-webkit-slider-thumb {
 
 #now-playing { font-family: 'Orbitron'; font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 5px; }
 #listeners { color: var(--neon-cyan); font-size: 0.75rem; letter-spacing: 3px; font-weight: 700; opacity: 0.8; }
+
+/* CHAT STYLING */
+.chat-frame { width: 100%; height: 500px; border: none; border-radius: 15px; }
 
 main { padding: 0 20px 80px; display: flex; flex-direction: column; gap: 30px; max-width: 900px; margin: 0 auto; }
 
@@ -120,7 +120,7 @@ main { padding: 0 20px 80px; display: flex; flex-direction: column; gap: 30px; m
 <center>
     <div class="live-indicator">
         <div class="pulse-circle"></div>
-        SYSTEM ONLINE // ENCRYPTED FEED
+        LIVE TRANSMISSION // TWITCH CHAT SYNCED
     </div>
 </center>
 
@@ -133,7 +133,7 @@ main { padding: 0 20px 80px; display: flex; flex-direction: column; gap: 30px; m
     <section id="radio" class="glass">
         <div class="video-container">
             <div id="player-overlay" onclick="startStream()" style="position: absolute; inset: 0; background: rgba(0,0,0,0.9); z-index: 10; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                <div class="btn" style="background: var(--neon-cyan); color: #000; width: auto;">▶ SYNC SIGNAL</div>
+                <div class="btn" style="background: var(--neon-cyan); color: #000; width: auto;">▶ SYNC FEED</div>
             </div>
             <div id="twitch-player"></div>
         </div>
@@ -147,14 +147,25 @@ main { padding: 0 20px 80px; display: flex; flex-direction: column; gap: 30px; m
         </div>
     </section>
 
-    <section class="glass" style="padding: 30px; text-align: center;">
-        <h2 style="font-family: 'Orbitron'; font-size: 1.1rem; letter-spacing: 4px; color: var(--neon-purple); margin-bottom: 20px;">COMMUNITY UPLINK</h2>
-        
-        <iframe src="https://discord.com/widget?id=1336497298375839795&theme=dark" width="100%" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 15px; margin-bottom: 20px;"></iframe>
-        
-        <a href="https://discord.gg/q8RMYJtp" target="_blank" class="btn btn-discord">
-            JOIN DISCORD FOR FULL CHAT
-        </a>
+    <section class="glass" style="padding: 20px;">
+        <h2 style="font-family: 'Orbitron'; font-size: 1rem; text-align: center; letter-spacing: 3px; margin-bottom: 15px; color: var(--neon-purple);">COMMS CHANNEL</h2>
+        <div id="twitch-chat-container">
+            <iframe 
+                id="twitch-chat-embed"
+                src="https://www.twitch.tv/embed/tuneinnowofficial/chat?parent=tuneinnow.fun&parent=www.tuneinnow.fun&parent=tuneinnowradio.github.io&darkpopout"
+                class="chat-frame">
+            </iframe>
+        </div>
+    </section>
+
+    <section class="glass" style="padding: 40px; text-align: center;">
+        <h2 style="font-family: 'Orbitron'; letter-spacing: 4px; color: var(--neon-cyan); margin-bottom: 25px;">UPLINK HUB</h2>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            <a href="https://discord.gg/q8RMYJtp" target="_blank" class="btn btn-discord">
+                <span style="font-size: 1.2rem; margin-right: 10px;">👾</span> DISCORD SERVER
+            </a>
+            <p style="font-size: 0.8rem; color: #777; font-family: 'Orbitron';">TUNEINNOWOFFICIAL@GMAIL.COM</p>
+        </div>
     </section>
 </main>
 
@@ -180,7 +191,6 @@ main { padding: 0 20px 80px; display: flex; flex-direction: column; gap: 30px; m
         document.getElementById('player-overlay').style.display = 'none';
     }
 
-    // External Volume Control
     volumeSlider.addEventListener('input', (e) => {
         if(player) player.setVolume(e.target.value);
     });
@@ -196,9 +206,9 @@ main { padding: 0 20px 80px; display: flex; flex-direction: column; gap: 30px; m
                 const artist = station.now_playing.song.artist.toUpperCase();
                 const title = station.now_playing.song.title.toUpperCase();
                 document.getElementById('now-playing').textContent = `${artist} - ${title}`;
-                document.getElementById('listeners').textContent = `${station.listeners.total} RIDERS TUNED IN`;
+                document.getElementById('listeners').textContent = `${station.listeners.total} RIDERS CONNECTED`;
             }
-        } catch(e) { document.getElementById('now-playing').textContent = "SIGNAL LOST"; }
+        } catch(e) { document.getElementById('now-playing').textContent = "OFFLINE SIGNAL"; }
     }
     setInterval(updateStats, 10000);
     updateStats();
