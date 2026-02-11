@@ -3,131 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TuneInNow | Euphoric Techno & Dark Club</title>
+    <title>TuneInNow | 3D Neon Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --neon-purple: #9d50bb;
-    --neon-cyan: #00f2fe;
-    --neon-pink: #ff007a;
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --ps-blue: #003791;
+    --ps-neon-cyan: #00f2fe;
+    --ps-neon-purple: #7000ff;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.15);
 }
 
 * { box-sizing: border-box; }
 body {
-    margin: 0; background: #050505; color: #fff;
+    margin: 0; background: #020205; color: #fff;
     font-family: 'Inter', sans-serif; overflow-x: hidden;
-    transition: background 3s ease; /* Smooth color shift */
 }
 
-/* LIVE RED BEACON */
-.live-beacon {
-    position: absolute; top: 20px; right: 20px;
-    font-family: 'Orbitron'; font-size: 0.8rem; font-weight: 900;
-    color: #ff0000; text-shadow: 0 0 10px #ff0000;
-    text-transform: uppercase; letter-spacing: 2px;
-    animation: flicker 2s infinite; z-index: 100;
-}
-@keyframes flicker {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.95); }
-}
-
-/* EUPHORIC GLOW BACKGROUND */
-.bg-glow {
+/* PLAYSTATION FLOWING BACKGROUND */
+.ps-bg {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 20% 30%, rgba(157, 80, 187, 0.15), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(0, 242, 254, 0.1), transparent 40%);
-    z-index: -1; animation: glow-shift 10s ease-in-out infinite alternate;
+    background: linear-gradient(125deg, #020205 0%, #001f52 50%, #020205 100%);
+    z-index: -2;
 }
-@keyframes glow-shift { from { transform: scale(1); } to { transform: scale(1.3); } }
 
-/* MODERN GLASSMORPHISM */
+.ps-mesh {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(112, 0, 255, 0.2) 0%, transparent 40%);
+    filter: blur(80px);
+    z-index: -1;
+    animation: flow 15s ease-in-out infinite alternate;
+}
+
+@keyframes flow {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.2) translate(5%, 5%); }
+}
+
+/* 3D FLOATING GLASS */
 .glass {
-    background: var(--glass); backdrop-filter: blur(25px);
-    border: 1px solid var(--glass-border); border-radius: 24px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(0, 242, 254, 0.2);
 }
 
-/* HEADER - BIGGER LOGO */
-header { padding: 60px 20px 40px; text-align: center; }
+/* HEADER */
+header { padding: 40px 20px; text-align: center; }
 .logo { 
-    height: 180px; /* Bigger Logo */
-    filter: drop-shadow(0 0 30px var(--neon-purple)); 
-    cursor: pointer; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    height: 140px; 
+    filter: drop-shadow(0 0 20px var(--ps-neon-cyan)); 
+    cursor: pointer;
 }
-.logo:hover { transform: scale(1.1) rotate(2deg); filter: drop-shadow(0 0 50px var(--neon-cyan)); }
-h1 { font-family: 'Orbitron'; letter-spacing: 12px; font-weight: 900; font-size: clamp(1.5rem, 5vw, 2.5rem); margin-top: 30px; text-transform: uppercase; }
+h1 { font-family: 'Orbitron'; letter-spacing: 8px; font-weight: 900; font-size: 2rem; margin-top: 15px; }
 
-/* STREAM DASHBOARD */
+/* STREAM GRID */
 .stream-grid {
-    display: grid; grid-template-columns: 1fr; gap: 20px;
-    max-width: 1300px; margin: 0 auto; padding: 20px;
+    display: grid; grid-template-columns: 1fr; gap: 25px;
+    max-width: 1400px; margin: 0 auto; padding: 20px;
 }
 @media (min-width: 1000px) {
-    .stream-grid { grid-template-columns: 2fr 1fr; height: 650px; }
+    .stream-grid { grid-template-columns: 2.5fr 1fr; height: 600px; }
 }
 
-.video-box { position: relative; width: 100%; height: 100%; border-radius: 20px; overflow: hidden; background: #000; min-height: 250px; }
-.chat-box { width: 100%; height: 500px; border-radius: 20px; overflow: hidden; }
-@media (min-width: 1000px) { .chat-box { height: 100%; } }
+.video-box { position: relative; overflow: hidden; background: #000; }
+.chat-box { overflow: hidden; }
 iframe { width: 100%; height: 100%; border: none; }
 
-/* STATS BAR */
+/* STATS / NOW PLAYING */
 .stats-bar { 
     display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;
-    padding: 30px; margin: 20px auto; max-width: 1300px; font-family: 'Orbitron'; font-size: 0.75rem; text-align: center;
+    padding: 25px; margin: 30px auto; max-width: 1400px; font-family: 'Orbitron';
 }
-.stat-item span { color: var(--neon-cyan); display: block; font-size: 1.1rem; margin-top: 8px; font-weight: 900; }
+.stat-item { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; opacity: 0.8; }
+.stat-item span { 
+    color: var(--ps-neon-cyan); display: block; font-size: 1.2rem; margin-top: 5px; font-weight: 900; 
+    text-shadow: 0 0 10px var(--ps-neon-cyan);
+}
 
-/* BLOG & POLLS */
-.content-section { max-width: 1300px; margin: 40px auto 120px; padding: 0 20px; display: grid; grid-template-columns: 1fr; gap: 30px; }
+/* CONTENT */
+.content-section { 
+    max-width: 1400px; margin: 0 auto 150px; padding: 0 20px; 
+    display: grid; grid-template-columns: 1fr; gap: 30px; 
+}
 @media (min-width: 900px) { .content-section { grid-template-columns: 2fr 1fr; } }
 
-.blog-card { padding: 30px; margin-bottom: 20px; border-left: 4px solid var(--neon-purple); }
-.blog-card h3 { font-family: 'Orbitron'; color: var(--neon-pink); margin-top: 0; }
-.poll-box { padding: 30px; text-align: center; }
-.poll-btn { 
-    display: block; width: 100%; padding: 15px; margin: 10px 0; background: rgba(255,255,255,0.05); 
-    border: 1px solid var(--glass-border); color: #fff; border-radius: 12px; cursor: pointer; transition: 0.3s; font-family: 'Orbitron'; font-size: 0.8rem;
-}
-.poll-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 20px var(--neon-cyan); }
+.blog-card { padding: 30px; margin-bottom: 20px; border-top: 2px solid var(--ps-neon-purple); }
+.blog-card h3 { font-family: 'Orbitron'; color: var(--ps-neon-cyan); margin: 0 0 15px; }
 
-/* MOBILE FRIENDLY FOOTER DOCK */
+/* QR CODE & SIDEBAR */
+.side-area { display: flex; flex-direction: column; gap: 20px; }
+.qr-box { padding: 25px; text-align: center; }
+.qr-box img { width: 150px; height: 150px; border-radius: 10px; border: 5px solid #fff; margin-bottom: 10px; }
+
+/* FOOTER DOCK */
 .footer-dock {
-    position: fixed; bottom: 0; left: 0; width: 100%; padding: 20px;
-    background: rgba(5,5,5,0.8); backdrop-filter: blur(15px);
-    border-top: 1px solid var(--glass-border); z-index: 1000;
-    display: flex; justify-content: center;
+    position: fixed; bottom: 0; left: 0; width: 100%; padding: 25px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    z-index: 1000; display: flex; justify-content: center;
 }
 .btn-support {
-    padding: 15px 50px; background: linear-gradient(45deg, #00d632, #00b12a);
-    color: #fff; border-radius: 50px; font-weight: 800; text-decoration: none;
-    font-family: 'Orbitron'; box-shadow: 0 0 30px rgba(0, 214, 50, 0.4);
-    animation: heartbeat 2s infinite; text-transform: uppercase;
+    padding: 16px 60px; background: #fff; color: #000;
+    border-radius: 4px; font-weight: 900; text-decoration: none;
+    font-family: 'Orbitron'; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+    transition: 0.3s;
 }
-@keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+.btn-support:hover { background: var(--ps-neon-cyan); transform: scale(1.1); }
 
 </style>
 </head>
 <body>
 
-<div class="live-beacon">● Twitch Stream is Live</div>
-<div class="bg-glow" id="dynamic-bg"></div>
+<div class="ps-bg"></div>
+<div class="ps-mesh"></div>
 
 <header>
     <img src="/tuneInNow.PNG" class="logo" alt="Logo" onclick="location.reload()">
-    <h1>TUNEINNOW</h1>
+    <h1>SYSTEM STATUS: ONLINE</h1>
 </header>
 
 <main>
     <div class="stream-grid">
         <div class="video-box glass">
-            <div id="player-overlay" onclick="startStream()" style="position: absolute; inset: 0; background: rgba(0,0,0,0.9); z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;">
-                <h2 style="font-family: 'Orbitron'; letter-spacing: 5px; text-align: center;">INITIATE AUDIO FEED</h2>
-                <div style="padding: 15px 40px; background: var(--neon-cyan); color: #000; border-radius: 50px; font-weight: 900; font-family: 'Orbitron'; margin-top: 20px;">CONNECT</div>
+            <div id="player-overlay" onclick="startStream()" style="position: absolute; inset: 0; background: rgba(0,0,0,0.85); z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;">
+                <h2 style="font-family: 'Orbitron'; letter-spacing: 5px;">PRESS START</h2>
+                <div style="font-size: 3rem; color: var(--ps-neon-cyan);">△</div>
             </div>
             <div id="twitch-player" style="height: 100%;"></div>
         </div>
@@ -138,55 +147,46 @@ iframe { width: 100%; height: 100%; border: none; }
     </div>
 
     <div class="stats-bar glass">
-        <div class="stat-item">CURRENT FREQUENCY <span id="now-playing">LOADING FEED...</span></div>
-        <div class="stat-item">CONNECTED RIDERS <span id="listeners">0</span></div>
-        <div class="stat-item">UPLINK <span style="color: #00ff00;">STABLE</span></div>
+        <div class="stat-item">NOW PLAYING <span id="now-playing">INITIALIZING...</span></div>
+        <div class="stat-item">PLAYERS ONLINE <span id="listeners">0</span></div>
+        <div class="stat-item">BITRATE <span style="color: #00ff00;">HI-RES</span></div>
     </div>
 
     <div class="content-section">
         <div class="blog-feed">
             <div class="blog-card glass">
                 <h3>V1.0: THE AWAKENING</h3>
-                <p>Welcome to the new era of TuneInNow. We've officially launched our 24/7 Twitch stream to bring high-fidelity techno and indie vibes to your screen. Expect late-night sets, exclusive visualizers, and a community of night-riders.</p>
-                <small style="color: var(--neon-cyan)">POSTED // FEB 2026</small>
+                <p>Welcome to the new era. 24/7 high-fidelity techno visualizers.</p>
+                <small style="color: var(--ps-neon-cyan)">RELEASED // FEB 2026</small>
             </div>
             <div class="blog-card glass">
-                <h3>SEND US YOUR TRACKS</h3>
-                <p>We are looking for underground talent. If you produce techno, dark-wave, or night-drive indie, send your demos to <strong>tuneinnowofficial@gmail.com</strong>. Let's build the soundtrack of the future together.</p>
+                <h3>STATION SUPPORT</h3>
+                <p>Enjoying the vibes? Help keep the servers spinning. All support goes directly back into visualizers and hardware.</p>
+                <a href="https://cash.app/$TuneInNowOfficial" style="color: var(--ps-neon-cyan); font-family: 'Orbitron'; text-decoration: none;">EXTERNAL_LINK: DONATE</a>
             </div>
         </div>
 
         <div class="side-area">
-            <div class="poll-box glass">
-                <h3 style="font-family: 'Orbitron'; font-size: 0.9rem;">VIBE CHECK</h3>
-                <p style="font-size: 0.8rem; opacity: 0.7;">What should we play next?</p>
-                <button class="poll-btn" onclick="alert('Vote Registered!')">Hard Techno</button>
-                <button class="poll-btn" onclick="alert('Vote Registered!')">Cyberpunk / Midtempo</button>
-                <button class="poll-btn" onclick="alert('Vote Registered!')">Chill Melodic Deep</button>
+            <div class="qr-box glass">
+                <h3 style="font-family: 'Orbitron'; font-size: 0.8rem; margin-bottom: 15px;">SYNC TO MOBILE</h3>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tuneinnow.fun" alt="QR Code">
+                <p style="font-size: 0.7rem; opacity: 0.6;">SCAN TO TAKE THE VIBE WITH YOU</p>
             </div>
             
-            <a href="https://discord.gg/q8RMYJtp" target="_blank" class="glass" style="display: block; padding: 25px; text-align: center; text-decoration: none; color: #fff; margin-top: 20px; font-family: 'Orbitron'; border: 1px solid var(--discord-blue);">
-                JOIN THE DISCORD HUB
+            <a href="https://discord.gg/q8RMYJtp" target="_blank" class="glass" style="display: block; padding: 25px; text-align: center; text-decoration: none; color: #fff; font-family: 'Orbitron';">
+                COMMUNITY HUB [DISCORD]
             </a>
         </div>
     </div>
 </main>
 
 <div class="footer-dock">
-    <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn-support">Support the Station</a>
+    <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn-support">SUPPORT THE STATION</a>
 </div>
 
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 <script>
     var player;
-    var bg = document.getElementById('dynamic-bg');
-    var colors = [
-        'radial-gradient(circle at 20% 30%, rgba(157, 80, 187, 0.3), transparent 50%)', // Purple
-        'radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.2), transparent 50%)', // Cyan
-        'radial-gradient(circle at 80% 30%, rgba(255, 0, 122, 0.2), transparent 50%)'  // Pink
-    ];
-    var colorIndex = 0;
-
     function initTwitch() {
         var options = {
             width: '100%', height: '100%',
@@ -199,15 +199,8 @@ iframe { width: 100%; height: 100%; border: none; }
 
     function startStream() {
         player.setMuted(false);
-        player.setVolume(0.5);
         player.play();
         document.getElementById('player-overlay').style.display = 'none';
-        
-        // Start background color cycling when playing
-        setInterval(() => {
-            bg.style.background = colors[colorIndex];
-            colorIndex = (colorIndex + 1) % colors.length;
-        }, 5000);
     }
 
     initTwitch();
@@ -218,10 +211,13 @@ iframe { width: 100%; height: 100%; border: none; }
             const data = await response.json();
             const station = data[0]; 
             if(station && station.now_playing) {
-                document.getElementById('now-playing').textContent = station.now_playing.song.title.toUpperCase();
+                // ADDED: Artist + Song Title formatting
+                const artist = station.now_playing.song.artist.toUpperCase();
+                const title = station.now_playing.song.title.toUpperCase();
+                document.getElementById('now-playing').innerHTML = `${artist} <br> <small style="font-size: 0.8rem; color:#fff;">${title}</small>`;
                 document.getElementById('listeners').textContent = station.listeners.total;
             }
-        } catch(e) { console.log("Sync delay..."); }
+        } catch(e) { console.log("Uplink delay..."); }
     }
     setInterval(updateStats, 10000);
     updateStats();
