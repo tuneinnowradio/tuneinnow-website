@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TuneInNow | 3D Neon Experience</title>
+    <title>TuneInNow | 24/7 Neon Radio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
 
 <style>
@@ -11,113 +11,114 @@
     --ps-blue: #003791;
     --ps-neon-cyan: #00f2fe;
     --ps-neon-purple: #7000ff;
-    --glass: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass: rgba(15, 15, 25, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
     margin: 0; background: #020205; color: #fff;
     font-family: 'Inter', sans-serif; overflow-x: hidden;
+    padding-bottom: 80px; /* Space for footer dock */
 }
 
-/* PLAYSTATION FLOWING BACKGROUND */
+/* FLOWING BACKGROUND */
 .ps-bg {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(125deg, #020205 0%, #001f52 50%, #020205 100%);
+    background: radial-gradient(circle at top right, #001f52, #020205);
     z-index: -2;
 }
 
 .ps-mesh {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: 
-        radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(112, 0, 255, 0.2) 0%, transparent 40%);
-    filter: blur(80px);
+        radial-gradient(circle at 20% 30%, rgba(0, 242, 254, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.15) 0%, transparent 50%);
+    filter: blur(100px);
     z-index: -1;
-    animation: flow 15s ease-in-out infinite alternate;
+    animation: pulse 10s ease-in-out infinite alternate;
 }
 
-@keyframes flow {
-    0% { transform: scale(1) translate(0, 0); }
-    100% { transform: scale(1.2) translate(5%, 5%); }
+@keyframes pulse {
+    from { transform: scale(1); opacity: 0.5; }
+    to { transform: scale(1.1); opacity: 1; }
 }
 
-/* 3D FLOATING GLASS */
+/* UI ELEMENTS */
 .glass {
     background: var(--glass);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.glass:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 45px rgba(0, 242, 254, 0.2);
+    border-radius: 16px;
 }
 
-/* HEADER */
-header { padding: 40px 20px; text-align: center; }
-.logo { 
-    height: 140px; 
-    filter: drop-shadow(0 0 20px var(--ps-neon-cyan)); 
-    cursor: pointer;
-}
-h1 { font-family: 'Orbitron'; letter-spacing: 8px; font-weight: 900; font-size: 2rem; margin-top: 15px; }
+header { padding: 30px 20px 10px; text-align: center; }
+.logo { height: 80px; filter: drop-shadow(0 0 15px var(--ps-neon-cyan)); cursor: pointer; transition: 0.3s; }
+.logo:hover { transform: scale(1.05); }
 
-/* STREAM GRID */
-.stream-grid {
-    display: grid; grid-template-columns: 1fr; gap: 25px;
-    max-width: 1400px; margin: 0 auto; padding: 20px;
-}
-@media (min-width: 1000px) {
-    .stream-grid { grid-template-columns: 2.5fr 1fr; height: 600px; }
+h1 { 
+    font-family: 'Orbitron'; letter-spacing: 4px; font-weight: 900; 
+    font-size: 1.2rem; margin-top: 15px; color: var(--ps-neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
 }
 
-.video-box { position: relative; overflow: hidden; background: #000; }
-.chat-box { overflow: hidden; }
-iframe { width: 100%; height: 100%; border: none; }
-
-/* STATS / NOW PLAYING */
-.stats-bar { 
-    display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;
-    padding: 25px; margin: 30px auto; max-width: 1400px; font-family: 'Orbitron';
-}
-.stat-item { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; opacity: 0.8; }
-.stat-item span { 
-    color: var(--ps-neon-cyan); display: block; font-size: 1.2rem; margin-top: 5px; font-weight: 900; 
-    text-shadow: 0 0 10px var(--ps-neon-cyan);
+/* MAIN GRID */
+.app-container {
+    max-width: 1200px; margin: 0 auto; padding: 15px;
+    display: grid; grid-template-columns: 1fr; gap: 20px;
 }
 
-/* CONTENT */
-.content-section { 
-    max-width: 1400px; margin: 0 auto 150px; padding: 0 20px; 
-    display: grid; grid-template-columns: 1fr; gap: 30px; 
+@media (min-width: 1024px) {
+    .app-container { grid-template-columns: 1fr 380px; }
 }
-@media (min-width: 900px) { .content-section { grid-template-columns: 2fr 1fr; } }
 
-.blog-card { padding: 30px; margin-bottom: 20px; border-top: 2px solid var(--ps-neon-purple); }
-.blog-card h3 { font-family: 'Orbitron'; color: var(--ps-neon-cyan); margin: 0 0 15px; }
+/* PLAYER BOX */
+.player-section { position: relative; aspect-ratio: 16/9; background: #000; overflow: hidden; }
+#player-overlay {
+    position: absolute; inset: 0; z-index: 5;
+    background: rgba(0,0,0,0.8); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; cursor: pointer;
+}
 
-/* QR CODE & SIDEBAR */
-.side-area { display: flex; flex-direction: column; gap: 20px; }
-.qr-box { padding: 25px; text-align: center; }
-.qr-box img { width: 150px; height: 150px; border-radius: 10px; border: 5px solid #fff; margin-bottom: 10px; }
+.play-symbol { font-size: 4rem; color: var(--ps-neon-cyan); margin-bottom: 10px; }
+
+/* CHAT BOX - Persistent Chat */
+.chat-section { height: 500px; display: flex; flex-direction: column; }
+@media (min-width: 1024px) { .chat-section { height: auto; } }
+
+/* STATS */
+.now-playing-bar {
+    padding: 20px; display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Orbitron';
+}
+.song-info h2 { font-size: 0.9rem; margin: 0; color: var(--ps-neon-cyan); }
+.song-info p { font-size: 0.7rem; margin: 5px 0 0; opacity: 0.7; }
+
+/* ACTION BUTTONS */
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+.btn-action {
+    padding: 15px; text-align: center; text-decoration: none; color: #fff;
+    font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px;
+    border: 1px solid var(--glass-border); border-radius: 12px;
+    background: rgba(255,255,255,0.05); transition: 0.2s;
+}
+.btn-action:hover { background: rgba(0, 242, 254, 0.1); border-color: var(--ps-neon-cyan); }
 
 /* FOOTER DOCK */
 .footer-dock {
-    position: fixed; bottom: 0; left: 0; width: 100%; padding: 25px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9));
-    z-index: 1000; display: flex; justify-content: center;
+    position: fixed; bottom: 0; left: 0; width: 100%; padding: 15px 20px;
+    background: rgba(2, 2, 5, 0.8); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
+    z-index: 100; display: flex; justify-content: center;
 }
 .btn-support {
-    padding: 16px 60px; background: #fff; color: #000;
-    border-radius: 4px; font-weight: 900; text-decoration: none;
-    font-family: 'Orbitron'; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-    transition: 0.3s;
+    width: 100%; max-width: 500px; padding: 14px;
+    background: #fff; color: #000; text-align: center;
+    border-radius: 8px; font-weight: 800; text-decoration: none;
+    font-family: 'Orbitron'; text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
 }
-.btn-support:hover { background: var(--ps-neon-cyan); transform: scale(1.1); }
 
 </style>
 </head>
@@ -127,61 +128,47 @@ iframe { width: 100%; height: 100%; border: none; }
 <div class="ps-mesh"></div>
 
 <header>
-    <img src="/tuneInNow.PNG" class="logo" alt="Logo" onclick="location.reload()">
-    <h1>SYSTEM STATUS: ONLINE</h1>
+    <img src="/tuneInNow.PNG" class="logo" alt="TuneInNow" onclick="location.reload()">
+    <h1>NETWORK_ID: TUNEINNOW</h1>
 </header>
 
-<main>
-    <div class="stream-grid">
-        <div class="video-box glass">
-            <div id="player-overlay" onclick="startStream()" style="position: absolute; inset: 0; background: rgba(0,0,0,0.85); z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;">
-                <h2 style="font-family: 'Orbitron'; letter-spacing: 5px;">PRESS START</h2>
-                <div style="font-size: 3rem; color: var(--ps-neon-cyan);">△</div>
+<main class="app-container">
+    <div class="main-content">
+        <div class="player-section glass">
+            <div id="player-overlay" onclick="startStream()">
+                <div class="play-symbol">△</div>
+                <div style="font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 3px;">CONNECT TO SIGNAL</div>
             </div>
             <div id="twitch-player" style="height: 100%;"></div>
         </div>
-        
-        <div class="chat-box glass">
-            <iframe src="https://www.twitch.tv/embed/tuneinnowofficial/chat?parent=tuneinnow.fun&parent=www.tuneinnow.fun&parent=tuneinnowradio.github.io&darkpopout"></iframe>
+
+        <div class="now-playing-bar glass" style="margin-top: 20px;">
+            <div class="song-info">
+                <h2 id="song-artist">INITIALIZING...</h2>
+                <p id="song-title">SCANNING FREQUENCIES</p>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 0.6rem; opacity: 0.5; margin-bottom: 5px;">LISTENERS</div>
+                <div id="listener-count" style="font-family: 'Orbitron'; color: var(--ps-neon-cyan); font-weight: 900;">00</div>
+            </div>
+        </div>
+
+        <div class="action-grid">
+            <a href="https://discord.gg/q8RMYJtp" target="_blank" class="btn-action">COMMUNITY [DISCORD]</a>
+            <a href="mailto:tuneinnowofficial@gmail.com" class="btn-action">CONTACT_STATION</a>
         </div>
     </div>
 
-    <div class="stats-bar glass">
-        <div class="stat-item">NOW PLAYING <span id="now-playing">INITIALIZING...</span></div>
-        <div class="stat-item">PLAYERS ONLINE <span id="listeners">0</span></div>
-        <div class="stat-item">BITRATE <span style="color: #00ff00;">HI-RES</span></div>
-    </div>
-
-    <div class="content-section">
-        <div class="blog-feed">
-            <div class="blog-card glass">
-                <h3>V1.0: THE AWAKENING</h3>
-                <p>Welcome to the new era. 24/7 high-fidelity techno visualizers.</p>
-                <small style="color: var(--ps-neon-cyan)">RELEASED // FEB 2026</small>
-            </div>
-            <div class="blog-card glass">
-                <h3>STATION SUPPORT</h3>
-                <p>Enjoying the vibes? Help keep the servers spinning. All support goes directly back into visualizers and hardware.</p>
-                <a href="https://cash.app/$TuneInNowOfficial" style="color: var(--ps-neon-cyan); font-family: 'Orbitron'; text-decoration: none;">EXTERNAL_LINK: DONATE</a>
-            </div>
+    <div class="chat-section glass">
+        <div style="padding: 15px; border-bottom: 1px solid var(--glass-border); font-family: 'Orbitron'; font-size: 0.7rem; color: var(--ps-neon-cyan);">
+            LIVE_CHAT_COMMUNICATIONS
         </div>
-
-        <div class="side-area">
-            <div class="qr-box glass">
-                <h3 style="font-family: 'Orbitron'; font-size: 0.8rem; margin-bottom: 15px;">SYNC TO MOBILE</h3>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tuneinnow.fun" alt="QR Code">
-                <p style="font-size: 0.7rem; opacity: 0.6;">SCAN TO TAKE THE VIBE WITH YOU</p>
-            </div>
-            
-            <a href="https://discord.gg/q8RMYJtp" target="_blank" class="glass" style="display: block; padding: 25px; text-align: center; text-decoration: none; color: #fff; font-family: 'Orbitron';">
-                COMMUNITY HUB [DISCORD]
-            </a>
-        </div>
+        <iframe src="https://deadsimplechat.com/D_i9UfK0Z" width="100%" height="100%" frameborder="0"></iframe>
     </div>
 </main>
 
 <div class="footer-dock">
-    <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn-support">SUPPORT THE STATION</a>
+    <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn-support">Support Station</a>
 </div>
 
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
@@ -192,7 +179,7 @@ iframe { width: 100%; height: 100%; border: none; }
             width: '100%', height: '100%',
             channel: "tuneinnowofficial",
             parent: ["tuneinnow.fun", "www.tuneinnow.fun", "tuneinnowradio.github.io"], 
-            autoplay: true, muted: true
+            autoplay: true, muted: true, playsinline: true
         };
         player = new Twitch.Player("twitch-player", options);
     }
@@ -200,10 +187,9 @@ iframe { width: 100%; height: 100%; border: none; }
     function startStream() {
         player.setMuted(false);
         player.play();
-        document.getElementById('player-overlay').style.display = 'none';
+        document.getElementById('player-overlay').style.opacity = '0';
+        setTimeout(() => { document.getElementById('player-overlay').style.display = 'none'; }, 300);
     }
-
-    initTwitch();
 
     async function updateStats(){
         try {
@@ -211,14 +197,14 @@ iframe { width: 100%; height: 100%; border: none; }
             const data = await response.json();
             const station = data[0]; 
             if(station && station.now_playing) {
-                // ADDED: Artist + Song Title formatting
-                const artist = station.now_playing.song.artist.toUpperCase();
-                const title = station.now_playing.song.title.toUpperCase();
-                document.getElementById('now-playing').innerHTML = `${artist} <br> <small style="font-size: 0.8rem; color:#fff;">${title}</small>`;
-                document.getElementById('listeners').textContent = station.listeners.total;
+                document.getElementById('song-artist').textContent = station.now_playing.song.artist.toUpperCase();
+                document.getElementById('song-title').textContent = station.now_playing.song.title.toUpperCase();
+                document.getElementById('listener-count').textContent = station.listeners.total.toString().padStart(2, '0');
             }
-        } catch(e) { console.log("Uplink delay..."); }
+        } catch(e) { console.log("Uplink sync issue..."); }
     }
+
+    initTwitch();
     setInterval(updateStats, 10000);
     updateStats();
 </script>
