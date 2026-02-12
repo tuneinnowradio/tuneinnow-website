@@ -3,182 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUNEINNOW // CORE_ACCESS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>TUNEINNOW // ULTRA_SIGNAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --neon-pink: #ff00ff;
-    --neon-cyan: #00f2fe;
-    --deep-bg: #0a0a0c;
-    --panel-bg: rgba(18, 18, 24, 0.95);
-    --border-glow: 0 0 10px rgba(0, 242, 254, 0.4);
+    --primary: #00f2fe; /* Neon Cyan */
+    --secondary: #fffb00; /* Toxic Yellow */
+    --bg: #000000;
+    --panel: #0a0a0a;
+    --border-weight: 3px;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
-    margin: 0; background: var(--deep-bg); color: #fff;
-    font-family: 'Rajdhani', sans-serif; overflow-x: hidden;
+    margin: 0; background: var(--bg); color: #fff;
+    font-family: 'Space Mono', monospace;
+    background-image: radial-gradient(circle at 2px 2px, #1a1a1a 1px, transparent 0);
+    background-size: 24px 24px;
+    padding-bottom: 100px;
 }
 
-/* CYBER GRID BACKGROUND */
-.bg-grid {
-    position: fixed; inset: 0;
-    background: 
-        linear-gradient(to bottom, transparent 95%, rgba(112, 0, 255, 0.1) 95%),
-        linear-gradient(to right, transparent 95%, rgba(112, 0, 255, 0.1) 95%);
-    background-size: 40px 40px;
-    z-index: -1;
-    perspective: 1000px;
-}
-
-/* TOP NAV */
+/* BRUTALIST HEADER */
 header {
-    background: rgba(0,0,0,0.8);
-    border-bottom: 3px solid var(--neon-cyan);
-    padding: 15px 25px;
+    background: var(--bg);
+    border-bottom: var(--border-weight) solid var(--primary);
+    padding: 20px 40px;
     display: flex; justify-content: space-between; align-items: center;
-    box-shadow: var(--border-glow);
+    position: sticky; top: 0; z-index: 1000;
 }
-.logo-img { height: 60px; filter: drop-shadow(0 0 8px var(--neon-cyan)); cursor: pointer; }
-.signal-status { font-family: 'Orbitron'; color: var(--neon-pink); font-size: 0.8rem; letter-spacing: 2px; }
+.logo-img { height: 45px; filter: invert(1); cursor: pointer; transition: 0.2s; }
+.logo-img:hover { filter: invert(1) drop-shadow(0 0 10px var(--primary)); }
+.system-clock { font-family: 'Syncopate'; font-size: 0.7rem; color: var(--secondary); letter-spacing: 2px; }
 
-/* MAIN CONTAINER */
-.deck {
-    max-width: 1400px; margin: 20px auto; padding: 10px;
-    display: grid; grid-template-columns: 1fr; gap: 20px;
+/* LAYOUT ENGINE */
+.terminal-grid {
+    max-width: 1600px; margin: 30px auto; padding: 0 20px;
+    display: grid; grid-template-columns: 1fr; gap: 30px;
 }
-@media (min-width: 1100px) { .deck { grid-template-columns: 1fr 400px; } }
+@media (min-width: 1200px) { 
+    .terminal-grid { grid-template-columns: 1fr 450px; height: 85vh; } 
+}
 
-/* PANELS */
+/* UI COMPONENTS */
 .panel {
-    background: var(--panel-bg);
-    border: 1px solid rgba(0, 242, 254, 0.2);
-    border-left: 4px solid var(--neon-cyan);
-    border-radius: 4px; overflow: hidden;
+    background: var(--panel);
+    border: var(--border-weight) solid #222;
+    position: relative; transition: border-color 0.3s;
 }
-.panel-label {
-    background: rgba(0, 242, 254, 0.1);
-    padding: 10px 15px; font-family: 'Orbitron';
-    font-size: 0.7rem; color: var(--neon-cyan);
-    border-bottom: 1px solid rgba(0, 242, 254, 0.1);
+.panel:hover { border-color: var(--primary); }
+
+.panel-tag {
+    position: absolute; top: -12px; left: 20px;
+    background: var(--primary); color: #000;
+    padding: 2px 10px; font-size: 0.6rem; font-weight: 900;
+    font-family: 'Syncopate';
 }
 
-/* PLAYER AREA */
-.player-box { position: relative; aspect-ratio: 16/9; background: #000; }
-#overlay {
-    position: absolute; inset: 0; z-index: 20;
-    background: radial-gradient(circle, rgba(10,10,12,0.8), #000);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;
+/* VIDEO PLAYER */
+.video-module { aspect-ratio: 16/9; background: #000; overflow: hidden; }
+#player-overlay {
+    position: absolute; inset: 0; z-index: 50;
+    background: #000; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; cursor: pointer;
 }
-.btn-init {
-    width: 90px; height: 90px; border: 3px solid var(--neon-cyan);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 2.5rem; color: var(--neon-cyan); box-shadow: var(--border-glow);
-    transition: 0.3s;
+.glitch-play {
+    font-size: 3rem; color: var(--secondary);
+    border: 4px solid var(--secondary);
+    padding: 10px 40px; transform: skew(-15deg);
+    font-family: 'Syncopate';
 }
-#overlay:hover .btn-init { transform: scale(1.1); box-shadow: 0 0 20px var(--neon-cyan); }
 
-/* STATS BAR */
-.stats-container {
-    display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px;
+/* STATS AREA */
+.meta-grid { 
+    display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 30px;
 }
-@media (min-width: 768px) { .stats-container { grid-template-columns: 1.5fr 1fr; } }
+@media (min-width: 768px) { .meta-grid { grid-template-columns: 1fr 200px; } }
 
-.now-playing { padding: 25px; }
-.now-playing h2 { font-family: 'Orbitron'; font-size: 1.8rem; margin: 0; color: var(--neon-cyan); line-height: 1.2; }
-.now-playing p { font-size: 1.1rem; color: var(--neon-pink); margin: 10px 0 0; font-weight: 700; }
+.now-playing-panel { padding: 30px; border-left: 10px solid var(--primary); }
+.now-playing-panel h2 { 
+    font-family: 'Syncopate'; font-size: 2rem; margin: 0; color: #fff;
+    text-transform: uppercase; letter-spacing: -1px;
+}
+.now-playing-panel p { color: var(--primary); font-size: 1.2rem; margin: 10px 0; font-weight: 700; }
 
-.qr-box { 
-    padding: 20px; text-align: center; 
+.qr-panel { 
     display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: #fff; color: #000; padding: 15px;
 }
-.qr-box img { width: 140px; border: 4px solid #fff; border-radius: 8px; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+.qr-panel img { width: 100%; max-width: 150px; }
+.qr-panel span { font-size: 0.5rem; font-weight: 900; margin-top: 5px; font-family: 'Syncopate'; }
 
-/* LINKS */
-.link-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-.btn-nav {
-    padding: 18px; text-align: center; text-decoration: none; color: #fff;
-    font-family: 'Orbitron'; font-size: 0.7rem; border: 1px solid var(--neon-pink);
-    background: rgba(255, 0, 255, 0.05); transition: 0.3s;
-}
-.btn-nav:hover { background: var(--neon-pink); color: #000; font-weight: 900; }
+/* CHAT PANEL */
+.chat-module { height: 100%; min-height: 500px; border-left: var(--border-weight) solid var(--secondary) !important; }
 
-/* CHAT BOX */
-.chat-box { height: 600px; display: flex; flex-direction: column; }
-@media (min-width: 1100px) { .chat-section { height: 100%; } }
+/* ACTION LINKS */
+.link-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+.btn-brutal {
+    padding: 20px; text-align: center; text-decoration: none; color: #fff;
+    border: 2px solid #333; font-family: 'Syncopate'; font-size: 0.7rem;
+    transition: 0.2s; background: rgba(255,255,255,0.02);
+}
+.btn-brutal:hover { background: #fff; color: #000; border-color: #fff; }
 
-/* STICKY FOOTER */
-.footer {
-    position: fixed; bottom: 0; width: 100%; padding: 15px;
-    background: rgba(0,0,0,0.9); border-top: 2px solid var(--neon-pink);
-    z-index: 100; text-align: center;
+/* FOOTER DOCK */
+.dock-footer {
+    position: fixed; bottom: 0; width: 100%;
+    padding: 20px; background: var(--bg);
+    border-top: var(--border-weight) solid var(--secondary);
+    z-index: 2000; display: flex; justify-content: center;
 }
-.btn-donate {
-    display: inline-block; width: 90%; max-width: 500px;
-    padding: 15px; background: var(--neon-pink); color: #fff;
-    text-decoration: none; font-family: 'Orbitron'; font-weight: 900;
-    text-transform: uppercase; border-radius: 2px;
-    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+.btn-support {
+    background: var(--secondary); color: #000;
+    padding: 15px 60px; text-decoration: none;
+    font-family: 'Syncopate'; font-weight: 900;
+    font-size: 0.9rem; transform: skew(-20deg);
+    box-shadow: 8px 8px 0px var(--primary);
+    transition: 0.2s;
 }
+.btn-support:hover { transform: skew(-20deg) translate(4px, 4px); box-shadow: 0px 0px 0px; }
 
 </style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-
 <header>
     <img src="/tuneInNow.PNG" class="logo-img" alt="TUNEINNOW" onclick="location.reload()">
-    <div class="signal-status">SIGNAL: STABLE // BROADCAST_LIVE</div>
+    <div class="system-clock" id="clock">STATION_LIVE // 00:00:00</div>
 </header>
 
-<main class="deck">
-    <div class="deck-main">
-        <div class="panel">
-            <div class="panel-label">BROADCAST_FEED</div>
-            <div class="player-box">
-                <div id="overlay" onclick="startStream()">
-                    <div class="btn-init">▶</div>
-                    <p style="font-family: 'Orbitron'; margin-top: 15px; letter-spacing: 4px;">INITIALIZE LINK</p>
-                </div>
-                <div id="twitch-player" style="height: 100%;"></div>
+<main class="terminal-grid">
+    <div class="main-wing">
+        <div class="panel video-module">
+            <div class="panel-tag">LIVE_STREAM_ENCODING</div>
+            <div id="player-overlay" onclick="startStream()">
+                <div class="glitch-play">START_CORE</div>
             </div>
+            <div id="twitch-player" style="height: 100%;"></div>
         </div>
 
-        <div class="stats-container">
-            <div class="panel now-playing">
-                <div style="font-size: 0.7rem; opacity: 0.6; margin-bottom: 10px; font-family: 'Orbitron';">CURRENT_TRANSMISSION</div>
-                <h2 id="song-artist">CORE_SCAN...</h2>
-                <p id="song-title">AWAITING_DATA</p>
-                <div style="margin-top: 25px; font-family: 'Orbitron'; font-size: 0.9rem;">
-                    SYNCED_USERS: <span id="listener-count" style="color: var(--neon-cyan);">00</span>
+        <div class="meta-grid">
+            <div class="panel now-playing-panel">
+                <div class="panel-tag" style="background:var(--secondary)">SIGNAL_METADATA</div>
+                <div style="font-size: 0.7rem; opacity: 0.5; margin-bottom: 5px;">BROADCASTING_NOW:</div>
+                <h2 id="song-artist">UPLINK_WAIT...</h2>
+                <p id="song-title">SCANNING_DATA_STREAM</p>
+                <div style="margin-top: 20px; font-family: 'Syncopate'; font-size: 0.7rem; color:var(--secondary);">
+                    LISTENERS_CONNECTED: <span id="listener-count">00</span>
                 </div>
             </div>
 
-            <div class="panel qr-box">
-                <div class="panel-label" style="position: absolute; top:0; left:0; width:100%;">MOBILE_DATA_LINK</div>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tuneinnow.fun" alt="QR Link">
-                <p style="font-size: 0.7rem; margin-top: 10px; font-family: 'Orbitron';">SCAN FOR MOBILE ACCESS</p>
+            <div class="panel qr-panel">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tuneinnow.fun" alt="QR_SYNC">
+                <span>MOBILE_Handoff</span>
             </div>
         </div>
 
-        <div class="link-grid">
-            <a href="https://discord.gg/q8RMYJtp" target="_blank" class="btn-nav">JOIN_DISCORD</a>
-            <a href="mailto:tuneinnowofficial@gmail.com" class="btn-nav">CONTACT_STATION</a>
+        <div class="link-row">
+            <a href="https://discord.gg/q8RMYJtp" target="_blank" class="btn-brutal">COMMUNITY_DISCORD</a>
+            <a href="mailto:tuneinnowofficial@gmail.com" class="btn-brutal">STATION_MAIL</a>
         </div>
     </div>
 
-    <div class="deck-side">
-        <div class="panel chat-box">
-            <div class="panel-label">COMM_CHANNEL_ENCRYPTED</div>
-            <iframe src="https://www3.cbox.ws/box/?boxid=3538421&boxtag=7j0p6p" width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0" scrolling="auto" allowtransparency="yes"></iframe>
+    <div class="side-wing">
+        <div class="panel chat-module">
+            <div class="panel-tag" style="background:var(--secondary)">COMMS_CENTER</div>
+            <iframe src="https://minnit.chat/TuneInNow?embed&&nickname=" style="border:none;width:100%;height:100%;" allow="geolocation; microphone; camera; display-capture; fullscreen" ontouchstart=""></iframe>
         </div>
     </div>
 </main>
 
-<div class="footer" style="padding-bottom: 30px;">
-    <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn-donate">SUPPORT_STATION_HARDWARE</a>
+<div class="dock-footer">
+    <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn-support">SUPPORT_STATION</a>
 </div>
 
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
@@ -197,7 +193,7 @@ header {
     function startStream() {
         player.setMuted(false);
         player.play();
-        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('player-overlay').style.display = 'none';
     }
 
     async function updateStats(){
@@ -210,11 +206,18 @@ header {
                 document.getElementById('song-title').textContent = station.now_playing.song.title.toUpperCase();
                 document.getElementById('listener-count').textContent = station.listeners.total.toString().padStart(2, '0');
             }
-        } catch(e) { console.log("Data link interrupted..."); }
+        } catch(e) { console.log("Re-syncing metadata..."); }
+    }
+
+    function updateClock() {
+        const now = new Date();
+        const time = now.toTimeString().split(' ')[0];
+        document.getElementById('clock').textContent = `STATION_LIVE // ${time}`;
     }
 
     initTwitch();
     setInterval(updateStats, 10000);
+    setInterval(updateClock, 1000);
     updateStats();
 </script>
 </body>
