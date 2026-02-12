@@ -91,14 +91,19 @@ header {
 #player-overlay {
     position: absolute; inset: 0; z-index: 100;
     background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
+    cursor: pointer; text-align: center;
 }
 
-/* SHORTER MOBILE TEXT */
+/* RESPONSIVE MOBILE TEXT */
 .start-text {
-    font-family: 'Orbitron'; font-size: clamp(2rem, 8vw, 4rem); color: #fff;
+    font-family: 'Orbitron'; 
+    font-size: clamp(1.2rem, 6vw, 2.5rem); /* Reduced base size */
+    color: #fff;
     text-shadow: 0 0 15px var(--cyan), 0 0 40px var(--cyan);
-    letter-spacing: 15px; font-weight: 900;
+    letter-spacing: 6px; /* Reduced spacing so it doesn't overflow */
+    font-weight: 900;
+    width: 100%;
+    padding: 0 10px;
 }
 
 .metadata-bar { padding: 40px; display: grid; grid-template-columns: 1fr; gap: 30px; }
