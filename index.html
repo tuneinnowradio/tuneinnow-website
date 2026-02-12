@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUNEINNOW // TOKYO_NIGHT_UPLINK</title>
+    <title>TUNEINNOW // TOKYO_MAX_VIEW</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -20,64 +20,64 @@
 body {
     margin: 0; background: var(--bg); color: #fff;
     font-family: 'Space Mono', monospace;
-    /* TOKYO GRID SYSTEM */
     background-image: 
         linear-gradient(rgba(112, 0, 255, 0.1) 1px, transparent 1px),
         linear-gradient(90deg, rgba(112, 0, 255, 0.1) 1px, transparent 1px),
         radial-gradient(circle at 50% 50%, #1a0033 0%, var(--bg) 80%);
     background-size: 40px 40px, 40px 40px, 100% 100%;
     padding-bottom: 160px;
-    overflow-x: hidden;
 }
 
-/* SCANLINE EFFECT */
+/* SCANLINE OVERLAY */
 body::before {
     content: " ";
     position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    z-index: 2000; background-size: 100% 2px, 3px 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 2000; background-size: 100% 3px, 3px 100%;
     pointer-events: none;
 }
 
-/* HEADER AREA */
 header {
-    padding: 80px 20px 50px; text-align: center;
+    padding: 40px 20px 30px; text-align: center;
     border-bottom: 2px solid var(--magenta);
-    background: rgba(10, 0, 20, 0.8); backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
+    background: rgba(10, 0, 20, 0.85); backdrop-filter: blur(10px);
+    box-shadow: 0 5px 30px rgba(255, 0, 255, 0.15);
 }
 
 .logo-main { 
-    height: 240px; 
-    filter: drop-shadow(0 0 10px var(--cyan)) drop-shadow(0 0 30px var(--purple));
+    height: 160px; 
+    filter: drop-shadow(0 0 10px var(--cyan));
     animation: neonPulse 5s infinite ease-in-out;
     cursor: pointer;
 }
 
 @keyframes neonPulse {
-    0%, 100% { filter: drop-shadow(0 0 15px var(--cyan)) contrast(1); transform: scale(1); }
-    50% { filter: drop-shadow(0 0 40px var(--magenta)) contrast(1.2); transform: scale(1.02); }
+    0%, 100% { filter: drop-shadow(0 0 15px var(--cyan)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 35px var(--magenta)); transform: scale(1.02); }
 }
 
 .btn-follow {
-    display: inline-block; margin-top: 35px;
-    padding: 15px 45px; background: transparent; color: #fff;
+    display: inline-block; margin-top: 20px;
+    padding: 12px 35px; background: transparent; color: #fff;
     text-decoration: none; font-family: 'Orbitron'; font-weight: 900;
-    border: 2px solid #9146FF; border-radius: 0px; font-size: 0.9rem;
+    border: 2px solid #9146FF; font-size: 0.8rem;
     text-transform: uppercase; letter-spacing: 3px;
-    box-shadow: 0 0 15px #9146FF, inset 0 0 10px #9146FF;
-    transition: 0.3s; position: relative;
+    box-shadow: 0 0 15px #9146FF; transition: 0.3s;
 }
-.btn-follow:hover { background: #9146FF; box-shadow: 0 0 40px #9146FF; transform: skew(-5deg); }
+.btn-follow:hover { background: #9146FF; box-shadow: 0 0 40px #9146FF; transform: scale(1.05); }
 
-/* MAIN TERMINAL */
-.app-deck { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+/* MAXIMIZED STAGE */
+.app-deck { 
+    max-width: 1400px; /* INCREASED FROM 1100px */
+    margin: 30px auto; 
+    padding: 0 20px; 
+}
 
 .glass-panel {
-    background: rgba(15, 0, 30, 0.85);
+    background: rgba(15, 0, 30, 0.9);
     border: 2px solid var(--cyan);
-    border-radius: 5px; position: relative;
-    box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+    border-radius: 4px; position: relative;
+    box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);
     overflow: hidden;
 }
 
@@ -88,71 +88,71 @@ header {
 
 #player-overlay {
     position: absolute; inset: 0; z-index: 100;
-    background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle, rgba(10,0,20,0.7) 0%, #000 100%); 
+    display: flex; align-items: center; justify-content: center;
     cursor: pointer;
 }
 
 .start-text {
-    font-family: 'Orbitron'; font-size: 2rem; color: #fff;
-    text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
-    letter-spacing: 10px; font-weight: 900; animation: flicker 2s infinite;
-}
-
-@keyframes flicker {
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-    20%, 22%, 24%, 55% { opacity: 0.4; }
+    font-family: 'Orbitron'; font-size: clamp(1.5rem, 5vw, 2.5rem); color: #fff;
+    text-shadow: 0 0 10px var(--cyan), 0 0 30px var(--cyan);
+    letter-spacing: 12px; font-weight: 900;
 }
 
 /* DATA BAR */
 .metadata-bar {
-    padding: 40px; display: flex; flex-wrap: wrap; 
-    justify-content: space-between; align-items: center; gap: 30px;
+    padding: 40px; display: grid;
+    grid-template-columns: 1fr; gap: 30px;
+}
+@media (min-width: 900px) {
+    .metadata-bar { grid-template-columns: 1fr auto; }
 }
 
 .song-display h2 { 
-    font-family: 'Orbitron'; font-size: 2.5rem; margin: 0; color: #fff;
-    text-shadow: 0 0 10px var(--magenta), 0 0 20px var(--purple);
+    font-family: 'Orbitron'; font-size: clamp(1.8rem, 4vw, 3rem); margin: 0; color: #fff;
+    text-shadow: 0 0 15px var(--magenta), 0 0 30px var(--purple);
+    text-transform: uppercase;
 }
-.song-display p { color: var(--cyan); font-weight: 700; margin: 15px 0 0; font-size: 1.4rem; text-shadow: 0 0 5px var(--cyan); }
+.song-display p { color: var(--cyan); font-weight: 700; margin: 10px 0 0; font-size: 1.5rem; text-shadow: 0 0 5px var(--cyan); }
 
 .qr-side {
-    background: var(--bg); padding: 15px; border: 2px solid var(--magenta);
-    box-shadow: 0 0 15px var(--magenta); display: flex; flex-direction: column; align-items: center;
+    background: #fff; padding: 15px; border: 4px solid var(--magenta);
+    box-shadow: 0 0 20px var(--magenta); display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-.qr-side img { width: 130px; filter: invert(1) brightness(1.5); }
-.qr-side span { color: var(--magenta); font-size: 0.7rem; font-weight: 900; margin-top: 10px; font-family: 'Orbitron'; }
+.qr-side img { width: 140px; }
+.qr-side span { color: #000; font-size: 0.7rem; font-weight: 900; margin-top: 10px; font-family: 'Orbitron'; }
 
 /* ACTION ROW */
-.action-links { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+.action-links { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
 .btn-neon {
     padding: 25px; text-align: center; text-decoration: none; color: #fff;
-    border: 1px solid var(--cyan); font-family: 'Orbitron'; font-size: 0.8rem;
+    border: 2px solid var(--cyan); font-family: 'Orbitron'; font-size: 0.8rem;
     font-weight: 900; background: rgba(0, 242, 254, 0.05); transition: 0.3s;
-    box-shadow: inset 0 0 10px var(--cyan);
+    text-transform: uppercase; letter-spacing: 2px;
 }
-.btn-neon:hover { background: var(--cyan); color: #000; box-shadow: 0 0 30px var(--cyan); transform: scale(1.02); }
+.btn-neon:hover { background: var(--cyan); color: #000; box-shadow: 0 0 30px var(--cyan); }
 
 /* FOOTER STATION */
 .footer-fixed {
-    position: fixed; bottom: 0; width: 100%; padding: 40px 20px;
+    position: fixed; bottom: 0; width: 100%; padding: 30px 20px;
     background: rgba(10, 0, 20, 0.95); backdrop-filter: blur(20px);
     border-top: 3px solid var(--yellow); z-index: 3000; text-align: center;
 }
 .btn-support {
-    display: inline-block; width: 100%; max-width: 650px;
-    padding: 22px; background: linear-gradient(90deg, var(--yellow), #ffaa00);
+    display: inline-block; width: 100%; max-width: 800px;
+    padding: 22px; background: var(--yellow);
     color: #000; text-decoration: none; font-family: 'Orbitron'; font-weight: 900;
     box-shadow: 0 0 30px var(--yellow); transition: 0.3s; font-size: 1.1rem;
-    clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+    text-transform: uppercase; letter-spacing: 2px;
 }
 .btn-support:hover { transform: translateY(-5px); box-shadow: 0 0 60px var(--yellow); }
 
 .live-indicator {
-    margin-top: 30px; font-family: 'Orbitron'; font-size: 1rem;
-    color: var(--magenta); display: flex; align-items: center; gap: 12px;
+    margin-top: 25px; font-family: 'Orbitron'; font-size: 1.1rem;
+    color: var(--magenta); display: flex; align-items: center; gap: 12px; font-weight: 900;
 }
-.dot { width: 12px; height: 12px; background: var(--magenta); border-radius: 50%; box-shadow: 0 0 15px var(--magenta); animation: blink 0.8s infinite; }
-@keyframes blink { 50% { opacity: 0.2; } }
+.dot { width: 12px; height: 12px; background: var(--magenta); border-radius: 50%; box-shadow: 0 0 15px var(--magenta); animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0.3; } }
 
 </style>
 </head>
@@ -161,45 +161,45 @@ header {
 <header>
     <img src="/tuneInNow.PNG" class="logo-main" alt="TUNEINNOW" onclick="location.reload()">
     <br>
-    <a href="https://twitch.tv/tuneinnowofficial" target="_blank" class="btn-follow">FOLLOW // TWITCH.TV</a>
+    <a href="https://twitch.tv/tuneinnowofficial" target="_blank" class="btn-follow">FOLLOW ON TWITCH</a>
 </header>
 
 <main class="app-deck">
     <div class="glass-panel">
         <div class="video-wrapper">
             <div id="player-overlay" onclick="startStream()">
-                <div class="start-text">UPLINK_SIGNAL</div>
+                <div class="start-text">INITIALIZE_BROADCAST</div>
             </div>
-            <div id="twitch-player"></div>
+            <div id="twitch-player" style="height: 100%;"></div>
         </div>
         
         <div class="metadata-bar">
             <div class="song-display">
-                <div style="font-size: 0.8rem; color: var(--magenta); letter-spacing: 5px; margin-bottom: 15px;">NOW_TRANSMITTING</div>
-                <h2 id="song-artist">SCANNING...</h2>
-                <p id="song-title">AWAITING_DATA_STREAM</p>
+                <div style="font-size: 0.8rem; color: var(--magenta); letter-spacing: 6px; margin-bottom: 15px; font-weight: 900;">SIGNAL_SOURCE: LIVE</div>
+                <h2 id="song-artist">CORE_UPLINKING...</h2>
+                <p id="song-title">FETCHING_DATA</p>
                 
                 <div class="live-indicator">
                     <div class="dot"></div>
-                    NODE_USERS: <span id="listener-count" style="color:#fff">00</span>
+                    SYNCED_NODES: <span id="listener-count" style="color:#fff">00</span>
                 </div>
             </div>
 
             <div class="qr-side">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tuneinnow.fun" alt="QR">
-                <span>MOBILE_LINK</span>
+                <span>MOBILE_HANDOFF</span>
             </div>
         </div>
     </div>
 
     <div class="action-links">
-        <a href="https://discord.gg/q8RMYJtp" target="_blank" class="btn-neon">JOIN_COMMUNITY</a>
-        <a href="mailto:tuneinnowofficial@gmail.com" class="btn-neon">STATION_UPLINK</a>
+        <a href="https://discord.gg/q8RMYJtp" target="_blank" class="btn-neon">DISCORD_ARRAY</a>
+        <a href="mailto:tuneinnowofficial@gmail.com" class="btn-neon">CONTACT_UPLINK</a>
     </div>
 </main>
 
 <div class="footer-fixed">
-    <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn-support">UPGRADE STATION HARDWARE</a>
+    <a href="https://cash.app/$TuneInNowOfficial" target="_blank" class="btn-support">MAINTAIN_STATION_HARDWARE</a>
 </div>
 
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
@@ -231,7 +231,7 @@ header {
                 document.getElementById('song-title').textContent = station.now_playing.song.title.toUpperCase();
                 document.getElementById('listener-count').textContent = station.listeners.total.toString().padStart(2, '0');
             }
-        } catch(e) { console.log("Link interference..."); }
+        } catch(e) { console.log("Packet loss detected..."); }
     }
 
     initTwitch();
